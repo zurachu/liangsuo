@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.5
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.5
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 546587046}
-  timer: {fileID: 1521583438}
+  timer: {fileID: 923387447}
   titleCanvasGroup: {fileID: 1415417268}
   practiceCanvasGroup: {fileID: 1832237153}
 --- !u!4 &598708572
@@ -1915,6 +1915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 923387446}
+  - component: {fileID: 923387447}
   m_Layer: 0
   m_Name: GameObject - Time
   m_TagString: Untagged
@@ -1943,6 +1944,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &923387447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923387445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fa8c2800d844fc588fed151237e580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barImage: {fileID: 594461998}
+  dangerBarImage: {fileID: 376127667}
+  barMaxTime: 20
+  initialTime: 20
+  dangerTime: 5
+  recoveryTimeByHit: 0.5
+  recoveryTimeByClear: 2
+  recoveryDuration: 0.5
 --- !u!1 &964776918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2355,7 +2376,6 @@ GameObject:
   - component: {fileID: 1521583435}
   - component: {fileID: 1521583437}
   - component: {fileID: 1521583436}
-  - component: {fileID: 1521583438}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -2422,23 +2442,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521583434}
   m_CullTransparentMesh: 1
---- !u!114 &1521583438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521583434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39fa8c2800d844fc588fed151237e580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barImage: {fileID: 594461998}
-  dangerBarImage: {fileID: 376127667}
-  barMaxTime: 60
-  initialTime: 30
-  dangerTime: 15
 --- !u!1 &1733064570
 GameObject:
   m_ObjectHideFlags: 0

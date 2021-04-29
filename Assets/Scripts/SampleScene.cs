@@ -78,10 +78,13 @@ public class SampleScene : MonoBehaviour
 
     private async void OnHit()
     {
-        timer.Recover(1f);
-
-        if (!field.TargetNumberRemained)
+        if (field.TargetNumberRemained)
         {
+            timer.RecoverByHit();
+        }
+        else
+        {
+            timer.RecoverByClear();
             await field.Flush();
             Drop();
         }
