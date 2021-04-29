@@ -7,19 +7,26 @@ public class SampleScene : MonoBehaviour
 {
     [SerializeField] private Transform dropper;
     [SerializeField] private Tile tilePrefab;
+    [SerializeField] private CanvasGroup titleCanvasGroup;
 
     private static readonly int dropTileCountPerLine = 4;
 
     // Start is called before the first frame update
     void Start()
     {
-        Drop();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void OnClickStartGame()
+    {
+        UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
+        Drop();
     }
 
     private void Drop()
