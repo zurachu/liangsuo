@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class SampleScene : MonoBehaviour
 {
-    [SerializeField] private Transform dropper;
-    [SerializeField] private Tile tilePrefab;
+    [SerializeField] private Field field;
     [SerializeField] private CanvasGroup titleCanvasGroup;
-
-    private static readonly int dropTileCountPerLine = 4;
 
     // Start is called before the first frame update
     void Start()
@@ -36,22 +33,15 @@ public class SampleScene : MonoBehaviour
         tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Pin, _number)));
         tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Sou, _number)));
         tileInfos = ListUtility.Shuffle(tileInfos);
+        field.Drop(tileInfos, OnHit, null);
+    }
 
-        foreach (var (tileInfo, index) in tileInfos.WithIndex())
+    private async void OnHit()
+    {
+        if (!field.TargetNumberRemained)
         {
-            var x = -1.5f + (index % dropTileCountPerLine) * 1f + Random.Range(-0.25f, 0.25f);
-            var y = dropper.position.y + index / dropTileCountPerLine * 1.5f;
-            var position = new Vector3(x, y);
-            var rotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-
-            var tile = Instantiate(tilePrefab, position, rotation, dropper);
-            tile.Initialize(tileInfo, (_tile) =>
-            {
-                if (_tile.TileInfo.number == 2)
-                {
-                    Destroy(tile.gameObject);
-                }
-            });
+            await field.Flush();
+            Drop();
         }
     }
 }
