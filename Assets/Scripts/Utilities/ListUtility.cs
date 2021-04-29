@@ -30,4 +30,9 @@ public static class ListUtility
     {
         return list.OrderBy(i => Guid.NewGuid()).ToList();
     }
+
+    public static T Random<T>(List<T> list)
+    {
+        return list[UnityEngine.Random.Range(0, list.Count)];
+    }
 }

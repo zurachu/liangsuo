@@ -23,6 +23,9 @@ public class Tile : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IP
             this.number = number;
         }
 
+        public static readonly int TargetNumber = 2;
+
+        public bool IsTargetNumber => number == TargetNumber;
         public string SpritePath => $"Sprites/{type.ToString().ToLower()}{number}-66-90-l-emb";
     }
 

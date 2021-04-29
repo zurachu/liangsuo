@@ -49,12 +49,7 @@ public class SampleScene : MonoBehaviour
 
     private async UniTask<bool> Practice(CancellationToken cancellationToken)
     {
-        var tileInfos = new List<Tile.Info>();
-        tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Man, _number)));
-        tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Pin, _number)));
-        tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Sou, _number)));
-        tileInfos = ListUtility.Shuffle(tileInfos);
-        field.Drop(tileInfos, null, null);
+        field.Drop(Wave.AllTiles(), null, null);
 
         await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
         if (cancellationToken.IsCancellationRequested)
@@ -77,11 +72,7 @@ public class SampleScene : MonoBehaviour
 
     private void Drop()
     {
-        var tileInfos = new List<Tile.Info>();
-        tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Man, _number)));
-        tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Pin, _number)));
-        tileInfos.AddRange(Enumerable.Range(1, 10).ToList().ConvertAll(_number => new Tile.Info(Tile.Info.Type.Sou, _number)));
-        tileInfos = ListUtility.Shuffle(tileInfos);
+        var tileInfos = Wave.RandomOneTypeTiles(32, 4);
         field.Drop(tileInfos, OnHit, null);
     }
 

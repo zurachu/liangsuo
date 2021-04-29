@@ -9,7 +9,6 @@ public class Field : MonoBehaviour
     [SerializeField] private GameObject bottom;
     [SerializeField] private Tile tilePrefab;
 
-    private static readonly int targetNumber = 2;
     private static readonly int dropTileCountPerLine = 4;
 
     private List<Tile> tiles;
@@ -23,7 +22,7 @@ public class Field : MonoBehaviour
                 return false;
             }
 
-            return tiles.Exists(_tile => _tile.TileInfo.number == targetNumber);
+            return tiles.Exists(_tile => _tile.TileInfo.IsTargetNumber);
         }
     }
 
@@ -57,7 +56,7 @@ public class Field : MonoBehaviour
             var tile = Instantiate(tilePrefab, position, rotation, transform);
             tile.Initialize(tileInfo, (_tile) =>
             {
-                if (_tile.TileInfo.number == targetNumber)
+                if (_tile.TileInfo.IsTargetNumber)
                 {
                     RemoveTile(_tile);
                     SEManager.Instance.Play(SEPath.RIGHT2);
