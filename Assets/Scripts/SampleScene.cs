@@ -125,7 +125,9 @@ public class SampleScene : MonoBehaviour
         else
         {
             timer.RecoverByClear();
+            timer.IsRunning = false;
             await field.Flush();
+            timer.IsRunning = true;
             Drop();
         }
     }
