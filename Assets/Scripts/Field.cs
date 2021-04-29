@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using KanKikuchi.AudioManager;
 using UnityEngine;
 
 public class Field : MonoBehaviour
@@ -42,6 +43,7 @@ public class Field : MonoBehaviour
     public void Drop(List<Tile.Info> tileInfos, Action onHit, Action onMissed)
     {
         UIUtility.TrySetActive(bottom, true);
+        SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008);
 
         ClearTiles();
 
@@ -58,10 +60,12 @@ public class Field : MonoBehaviour
                 if (_tile.TileInfo.number == targetNumber)
                 {
                     RemoveTile(_tile);
+                    SEManager.Instance.Play(SEPath.RIGHT2);
                     onHit?.Invoke();
                 }
                 else
                 {
+                    SEManager.Instance.Play(SEPath.MISTAKE);
                     onMissed?.Invoke();
                 }
             });
@@ -73,6 +77,7 @@ public class Field : MonoBehaviour
     public async UniTask Flush()
     {
         UIUtility.TrySetActive(bottom, false);
+        SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008);
         await UniTask.Delay(1500);
         ClearTiles();
     }
