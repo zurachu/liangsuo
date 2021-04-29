@@ -1,18 +1,57 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SampleScene : MonoBehaviour
 {
     [SerializeField] private Field field;
     [SerializeField] private Timer timer;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text comboText;
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private CanvasGroup practiceCanvasGroup;
+
+    private int Score
+    {
+        get => score;
+        set
+        {
+            if (score < value)
+            {
+                // animation
+            }
+
+            score = value;
+            UIUtility.TrySetText(scoreText, $"{score}");
+        }
+    }
+
+    private int score;
+
+    private int Combo
+    {
+        get => combo;
+        set
+        {
+            if (combo < value)
+            {
+                // animation
+            }
+
+            combo = value;
+            UIUtility.TrySetText(comboText, $"{combo}");
+        }
+    }
+
+    private int combo;
 
     private CancellationTokenSource cancellationTokenSource;
 
     private void Start()
     {
+        Score = 0;
+        Combo = 0;
         OnClickTitle();
     }
 
@@ -71,11 +110,14 @@ public class SampleScene : MonoBehaviour
     private void Drop()
     {
         var tileInfos = Wave.RandomOneTypeTiles(32, 4);
-        field.Drop(tileInfos, OnHit, null);
+        field.Drop(tileInfos, OnHit, OnMissed);
     }
 
     private async void OnHit()
     {
+        Combo++;
+        Score += ScoreCalculator.ScoreByCombo(Combo);
+
         if (field.TargetNumberRemained)
         {
             timer.RecoverByHit();
@@ -86,5 +128,10 @@ public class SampleScene : MonoBehaviour
             await field.Flush();
             Drop();
         }
+    }
+
+    private void OnMissed()
+    {
+        Combo = 0;
     }
 }
