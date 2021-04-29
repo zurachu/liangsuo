@@ -60,3 +60,5 @@ crashlytics-build.properties
 
 WebGL
 Assets/Plugins/Demigiant*
+Assets/AudioManager_KanKikuchi/Resources/BGM
+Assets/AudioManager_KanKikuchi/Resources/SE
