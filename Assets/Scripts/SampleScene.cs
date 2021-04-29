@@ -6,6 +6,7 @@ using UnityEngine;
 public class SampleScene : MonoBehaviour
 {
     [SerializeField] private Field field;
+    [SerializeField] private Timer timer;
     [SerializeField] private CanvasGroup titleCanvasGroup;
 
     // Start is called before the first frame update
@@ -24,6 +25,8 @@ public class SampleScene : MonoBehaviour
     {
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
         Drop();
+        timer.Reset();
+        timer.IsRunning = true;
     }
 
     private void Drop()
@@ -38,6 +41,8 @@ public class SampleScene : MonoBehaviour
 
     private async void OnHit()
     {
+        timer.Recover(1f);
+
         if (!field.TargetNumberRemained)
         {
             await field.Flush();
