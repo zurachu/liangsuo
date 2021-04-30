@@ -250,8 +250,8 @@ GameObject:
   - component: {fileID: 115071241230547682}
   - component: {fileID: 115071241230547710}
   - component: {fileID: 115071241230547711}
-  - component: {fileID: 115071241230547708}
-  - component: {fileID: 115071241230547709}
+  - component: {fileID: 2671122873982084953}
+  - component: {fileID: 4237863892597954661}
   - component: {fileID: 442873873302978005}
   m_Layer: 5
   m_Name: Button - Title
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &115071241230547708
+--- !u!114 &2671122873982084953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 115071241230547683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: f2791504537764005b90f4be79b87c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -361,20 +361,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 115071241230547711}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7626563533404880801}
-        m_TargetAssemblyTypeName: ResultLeaderboardView, Assembly-CSharp
-        m_MethodName: OnClickTitle
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &115071241230547709
+      m_Calls: []
+--- !u!114 &4237863892597954661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

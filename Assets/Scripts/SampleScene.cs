@@ -11,7 +11,7 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private Text comboText;
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup titleCanvasGroup;
-    [SerializeField] private CanvasGroup practiceCanvasGroup;
+    [SerializeField] private PracticeView practiceViewPrefab;
     [SerializeField] private ResultLeaderboardView resultLeaderboardViewPrefab;
 
     private int Score
@@ -48,8 +48,6 @@ public class SampleScene : MonoBehaviour
 
     private int combo;
 
-    private CancellationTokenSource cancellationTokenSource;
-
     private void Start()
     {
         Score = 0;
@@ -64,31 +62,18 @@ public class SampleScene : MonoBehaviour
 
     public void OnClickTitle()
     {
-        if (cancellationTokenSource != null)
-        {
-            cancellationTokenSource.Cancel();
-        }
-
         field.ClearTiles();
 
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, true);
-        UIUtility.TrySetActive(practiceCanvasGroup.gameObject, false);
         timer.Remaining = 0f;
         timer.IsRunning = false;
     }
 
-    public async void OnClickPractice()
+    public void OnClickPractice()
     {
-        if (cancellationTokenSource != null)
-        {
-            cancellationTokenSource.Cancel();
-        }
-
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
-        UIUtility.TrySetActive(practiceCanvasGroup.gameObject, true);
-
-        cancellationTokenSource = new CancellationTokenSource();
-        while (await Practice(cancellationTokenSource.Token));
+        var view = Instantiate(practiceViewPrefab, canvas.transform);
+        view.Initialize(field);
     }
 
     public void OnClickEasy()
@@ -111,31 +96,11 @@ public class SampleScene : MonoBehaviour
         StartLevel(new Level.Endless());
     }
 
-    private async UniTask<bool> Practice(CancellationToken cancellationToken)
-    {
-        field.Drop(Wave.AllTilesInfos(), null, null);
-
-        await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
-        if (cancellationToken.IsCancellationRequested)
-        {
-            return false;
-        }
-
-        await field.Flush();
-
-        return !cancellationToken.IsCancellationRequested;
-    }
-
     private async void StartLevel(Level.ILevel level)
     {
-        if (cancellationTokenSource != null)
-        {
-            cancellationTokenSource.Cancel();
-        }
-
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
-        UIUtility.TrySetActive(practiceCanvasGroup.gameObject, false);
 
+        var cancellationTokenSource = new CancellationTokenSource();
         var wave = 1;
         timer.Reset();
         timer.OnTimedUp = () =>
@@ -146,7 +111,6 @@ public class SampleScene : MonoBehaviour
             }
         };
 
-        cancellationTokenSource = new CancellationTokenSource();
         while (await PlayWave(level, wave, cancellationTokenSource.Token))
         {
             wave++;
