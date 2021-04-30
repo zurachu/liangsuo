@@ -1467,8 +1467,10 @@ MonoBehaviour:
   timer: {fileID: 923387447}
   scoreText: {fileID: 1881366500}
   comboText: {fileID: 996406788}
+  canvas: {fileID: 2101648195}
   titleCanvasGroup: {fileID: 1415417268}
   practiceCanvasGroup: {fileID: 1832237153}
+  resultLeaderboardViewPrefab: {fileID: 7626563533404880801, guid: 442c8222d6e3d41be9b309bff97802e8, type: 3}
 --- !u!4 &598708572
 Transform:
   m_ObjectHideFlags: 0

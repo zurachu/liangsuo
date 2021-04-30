@@ -4,6 +4,7 @@ namespace Level
 {
     public class Hard : ILevel
     {
+        public string Name => "上級";
         public string StatisticName => "hard";
         public bool IsLimitedWaveCount => true;
         public int WaveCount => 10;

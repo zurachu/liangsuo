@@ -18,16 +18,17 @@ public class Timer : MonoBehaviour
     public bool IsRunning { get; set; }
     public Action OnTimedUp { get; set; }
 
+    public bool IsTimedUp => remainingTime <= 0f;
     public float Remaining
     {
         get => remainingTime;
         set
         {
-            var isPreviousRemaining = remainingTime > 0f;
+            var isPreviousTimedUp = IsTimedUp;
 
             remainingTime = value;
 
-            if (isPreviousRemaining && Remaining <= 0)
+            if (!isPreviousTimedUp && IsTimedUp)
             {
                 OnTimedUp?.Invoke();
             }

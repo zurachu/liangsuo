@@ -9,8 +9,10 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private Timer timer;
     [SerializeField] private Text scoreText;
     [SerializeField] private Text comboText;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private CanvasGroup practiceCanvasGroup;
+    [SerializeField] private ResultLeaderboardView resultLeaderboardViewPrefab;
 
     private int Score
     {
@@ -53,6 +55,11 @@ public class SampleScene : MonoBehaviour
         Score = 0;
         Combo = 0;
         OnClickTitle();
+
+        if (!PlayFabLoginManagerService.Instance.LoggedIn)
+        {
+            _ = PlayFabLoginManagerService.Instance.LoginAsyncWithRetry(1000);
+        }
     }
 
     public void OnClickTitle()
@@ -131,12 +138,31 @@ public class SampleScene : MonoBehaviour
 
         var wave = 1;
         timer.Reset();
+        timer.OnTimedUp = () =>
+        {
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+            }
+        };
 
         cancellationTokenSource = new CancellationTokenSource();
         while (await PlayWave(level, wave, cancellationTokenSource.Token))
         {
             wave++;
         }
+
+        if (timer.IsTimedUp)
+        {
+            // game over
+        }
+        else
+        {
+            // clear
+        }
+
+        await PlayFabLeaderboardUtility.UpdatePlayerStatisticWithRetry(level.StatisticName, Score, 1000);
+        ShowResultLeaderboardView(level);
     }
 
     private async UniTask<bool> PlayWave(Level.ILevel level, int waveCount, CancellationToken cancellationToken)
@@ -175,5 +201,11 @@ public class SampleScene : MonoBehaviour
     private void OnMissed()
     {
         Combo = 0;
+    }
+
+    private void ShowResultLeaderboardView(Level.ILevel level)
+    {
+        var view = Instantiate(resultLeaderboardViewPrefab, canvas.transform);
+        view.Initialize(level, 30, Score);
     }
 }

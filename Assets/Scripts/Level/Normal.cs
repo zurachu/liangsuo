@@ -4,6 +4,7 @@ namespace Level
 {
     public class Normal : ILevel
     {
+        public string Name => "中級";
         public string StatisticName => "normal";
         public bool IsLimitedWaveCount => true;
         public int WaveCount => 10;

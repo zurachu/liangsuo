@@ -4,6 +4,7 @@ namespace Level
 {
     public class Endless : ILevel
     {
+        public string Name => "エンドレスモード";
         public string StatisticName => "endless";
         public bool IsLimitedWaveCount => false;
         public int WaveCount => 0;

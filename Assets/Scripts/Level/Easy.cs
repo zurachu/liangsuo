@@ -4,6 +4,7 @@ namespace Level
 {
     public class Easy : ILevel
     {
+        public string Name => "初級";
         public string StatisticName => "easy";
         public bool IsLimitedWaveCount => true;
         public int WaveCount => 10;

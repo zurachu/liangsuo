@@ -4,6 +4,7 @@ namespace Level
 {
     public interface ILevel
     {
+        string Name { get; }
         string StatisticName { get; }
         bool IsLimitedWaveCount { get; }
         int WaveCount { get; }
