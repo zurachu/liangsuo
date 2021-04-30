@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultLeaderboardView : MonoBehaviour
@@ -30,10 +29,5 @@ public class ResultLeaderboardView : MonoBehaviour
 #else
         TweetWithoutUnityRoom(message);
 #endif
-    }
-
-    public void OnClickTitle()
-    {
-        SceneManager.LoadScene("SampleScene");
     }
 }
