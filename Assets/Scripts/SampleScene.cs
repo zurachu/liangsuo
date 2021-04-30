@@ -84,6 +84,26 @@ public class SampleScene : MonoBehaviour
         while (await Practice(cancellationTokenSource.Token));
     }
 
+    public void OnClickEasy()
+    {
+        StartLevel(new Level.Easy());
+    }
+
+    public void OnClickNormal()
+    {
+        StartLevel(new Level.Normal());
+    }
+
+    public void OnClickHard()
+    {
+        StartLevel(new Level.Hard());
+    }
+
+    public void OnClickEndless()
+    {
+        StartLevel(new Level.Endless());
+    }
+
     private async UniTask<bool> Practice(CancellationToken cancellationToken)
     {
         field.Drop(Wave.AllTilesInfos(), null, null);
@@ -99,21 +119,45 @@ public class SampleScene : MonoBehaviour
         return !cancellationToken.IsCancellationRequested;
     }
 
-    public void OnClickStartGame()
+    private async void StartLevel(Level.ILevel level)
     {
+        if (cancellationTokenSource != null)
+        {
+            cancellationTokenSource.Cancel();
+        }
+
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
-        Drop();
+        UIUtility.TrySetActive(practiceCanvasGroup.gameObject, false);
+
+        var wave = 1;
         timer.Reset();
-        timer.IsRunning = true;
+
+        cancellationTokenSource = new CancellationTokenSource();
+        while (await PlayWave(level, wave, cancellationTokenSource.Token))
+        {
+            wave++;
+        }
     }
 
-    private void Drop()
+    private async UniTask<bool> PlayWave(Level.ILevel level, int waveCount, CancellationToken cancellationToken)
     {
-        var tileInfos = Wave.RandomAllTypeTilesInfos(5);
-        field.Drop(tileInfos, OnHit, OnMissed);
+        timer.IsRunning = true;
+
+        field.Drop(level.WaveTileInfos(waveCount), OnHit, OnMissed);
+
+        await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return false;
+        }
+
+        timer.IsRunning = false;
+        await field.Flush();
+
+        return !level.IsLimitedWaveCount || waveCount < level.WaveCount;
     }
 
-    private async void OnHit()
+    private void OnHit()
     {
         Combo++;
         Score += ScoreCalculator.ScoreByCombo(Combo);
@@ -125,10 +169,6 @@ public class SampleScene : MonoBehaviour
         else
         {
             timer.RecoverByClear();
-            timer.IsRunning = false;
-            await field.Flush();
-            timer.IsRunning = true;
-            Drop();
         }
     }
 
