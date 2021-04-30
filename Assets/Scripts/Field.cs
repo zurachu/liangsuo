@@ -56,9 +56,9 @@ public class Field : MonoBehaviour
             var tile = Instantiate(tilePrefab, position, rotation, transform);
             tile.Initialize(tileInfo, (_tile) =>
             {
+                RemoveTile(_tile);
                 if (_tile.TileInfo.IsTargetNumber)
                 {
-                    RemoveTile(_tile);
                     SEManager.Instance.Play(SEPath.RIGHT2);
                     onHit?.Invoke();
                 }
