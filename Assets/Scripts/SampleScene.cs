@@ -86,7 +86,7 @@ public class SampleScene : MonoBehaviour
 
     private async UniTask<bool> Practice(CancellationToken cancellationToken)
     {
-        field.Drop(Wave.AllTiles(), null, null);
+        field.Drop(Wave.AllTilesInfos(), null, null);
 
         await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
         if (cancellationToken.IsCancellationRequested)
@@ -109,7 +109,7 @@ public class SampleScene : MonoBehaviour
 
     private void Drop()
     {
-        var tileInfos = Wave.RandomOneTypeTiles(32, 4);
+        var tileInfos = Wave.RandomAllTypeTilesInfos(5);
         field.Drop(tileInfos, OnHit, OnMissed);
     }
 

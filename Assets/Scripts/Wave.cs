@@ -3,34 +3,45 @@ using System.Linq;
 
 public static class Wave
 {
-    public static List<Tile.Info> AllTiles()
+    public static List<Tile.Info> AllTilesInfos()
     {
         var tileInfos = new List<Tile.Info>();
-        tileInfos.AddRange(AllNumbers(Tile.Info.Type.Man));
-        tileInfos.AddRange(AllNumbers(Tile.Info.Type.Pin));
-        tileInfos.AddRange(AllNumbers(Tile.Info.Type.Sou));
+        tileInfos.AddRange(AllNumbersInfos(Tile.Info.Type.Man));
+        tileInfos.AddRange(AllNumbersInfos(Tile.Info.Type.Pin));
+        tileInfos.AddRange(AllNumbersInfos(Tile.Info.Type.Sou));
         return ListUtility.Shuffle(tileInfos);
     }
 
-    public static List<Tile.Info> AllNumbers(Tile.Info.Type type)
+    public static List<Tile.Info> RandomAllTypeTilesInfos(int numbersCount)
     {
-        return Numbers().ConvertAll(_number => new Tile.Info(type, _number));
-    }
-
-    public static List<Tile.Info> RandomOneTypeTiles(int count, int targetCount)
-    {
-        var numbers = new List<int>(Enumerable.Repeat(Tile.Info.TargetNumber, targetCount).ToList());
-
-        var notTargetNumbers = Numbers();
-        notTargetNumbers.Remove(Tile.Info.TargetNumber);
-        for (var i = targetCount; i < count; i++)
+        var tileInfos = new List<Tile.Info>();
+        for (var i = 0; i < numbersCount; i++)
         {
-            numbers.Add(ListUtility.Random(notTargetNumbers));
+            tileInfos.AddRange(Numbers().ConvertAll(_number => new Tile.Info(RandomTileType(), _number)));
         }
 
-        var type = RandomTileType();
-        var tileInfos = numbers.ConvertAll(_number => new Tile.Info(type, _number));
         return ListUtility.Shuffle(tileInfos);
+    }
+
+    public static List<Tile.Info> RandomOneTypeTilesInfos(int numbersCount)
+    {
+        return OneTypeTilesInfos(RandomTileType(), numbersCount);
+    }
+
+    public static List<Tile.Info> OneTypeTilesInfos(Tile.Info.Type type, int numbersCount)
+    {
+        var tileInfos = new List<Tile.Info>();
+        for (var i = 0; i < numbersCount; i++)
+        {
+            tileInfos.AddRange(AllNumbersInfos(type));
+        }
+
+        return ListUtility.Shuffle(tileInfos);
+    }
+
+    private static List<Tile.Info> AllNumbersInfos(Tile.Info.Type type)
+    {
+        return Numbers().ConvertAll(_number => new Tile.Info(type, _number));
     }
 
     private static Tile.Info.Type RandomTileType()
