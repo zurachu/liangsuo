@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
+using UnityEngine.Networking;
 
 namespace naichilab.Scripts.Internal
 {
@@ -46,12 +46,12 @@ namespace naichilab.Scripts.Internal
 
             var sb = new StringBuilder();
             sb.Append(ShareUrl);
-            sb.Append("&url=" + WWW.EscapeURL(url));
-            sb.Append("&text=" + WWW.EscapeURL(text));
+            sb.Append("&url=" + UnityWebRequest.EscapeURL(url));
+            sb.Append("&text=" + UnityWebRequest.EscapeURL(text));
             if (HashTags.Any())
             {
                 var hashTagText = string.Join(",", HashTags.ToArray());
-                sb.Append("&hashtags=" + WWW.EscapeURL(hashTagText));
+                sb.Append("&hashtags=" + UnityWebRequest.EscapeURL(hashTagText));
             }
 
             return sb.ToString();
