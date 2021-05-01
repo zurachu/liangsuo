@@ -27,7 +27,7 @@ public class SampleScene : MonoBehaviour
             }
 
             score = value;
-            UIUtility.TrySetText(scoreText, $"{score}");
+            UIUtility.TrySetText(scoreText, $"{score:#,0}");
         }
     }
 
@@ -44,7 +44,7 @@ public class SampleScene : MonoBehaviour
             }
 
             combo = value;
-            UIUtility.TrySetText(comboText, $"{combo}");
+            UIUtility.TrySetText(comboText, $"{combo:#,0}");
         }
     }
 
