@@ -7,8 +7,8 @@ public class SampleScene : MonoBehaviour
 {
     [SerializeField] private Field field;
     [SerializeField] private Timer timer;
+    [SerializeField] private Text waveCountText;
     [SerializeField] private Text scoreText;
-    [SerializeField] private Text comboText;
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private PracticeView practiceViewPrefab;
@@ -16,6 +16,23 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private TimeBonusView timeBonusViewPrefab;
     [SerializeField] private ResultLeaderboardView resultLeaderboardViewPrefab;
     [SerializeField] private GameObject tapDefenseView;
+
+    private int WaveCount
+    {
+        get => waveCount;
+        set
+        {
+            if (waveCount < value)
+            {
+                // animation
+            }
+
+            waveCount = value;
+            UIUtility.TrySetText(waveCountText, $"{waveCount:#,0}");
+        }
+    }
+
+    private int waveCount;
 
     private int Score
     {
@@ -34,28 +51,14 @@ public class SampleScene : MonoBehaviour
 
     private int score;
 
-    private int Combo
-    {
-        get => combo;
-        set
-        {
-            if (combo < value)
-            {
-                // animation
-            }
-
-            combo = value;
-            UIUtility.TrySetText(comboText, $"{combo:#,0}");
-        }
-    }
-
     private int combo;
     private LeaderboardView leaderboardView;
 
     private async void Start()
     {
+        WaveCount = 0;
         Score = 0;
-        Combo = 0;
+        combo = 0;
         field.ClearTiles();
 
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, true);
@@ -116,7 +119,6 @@ public class SampleScene : MonoBehaviour
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
 
         var cancellationTokenSource = new CancellationTokenSource();
-        var wave = 1;
         timer.Reset();
         timer.OnTimedUp = () =>
         {
@@ -126,10 +128,10 @@ public class SampleScene : MonoBehaviour
             }
         };
 
-        while (await PlayWave(level, wave, cancellationTokenSource.Token))
+        do
         {
-            wave++;
-        }
+            WaveCount++;
+        } while (await PlayWave(level, WaveCount, cancellationTokenSource.Token));
 
         timer.IsRunning = false;
         UIUtility.TrySetActive(tapDefenseView, true);
@@ -172,8 +174,8 @@ public class SampleScene : MonoBehaviour
 
     private void OnHit()
     {
-        Combo++;
-        Score += ScoreCalculator.ScoreByCombo(Combo);
+        combo++;
+        Score += ScoreCalculator.ScoreByCombo(combo);
 
         if (field.TargetNumberRemained)
         {
@@ -187,7 +189,7 @@ public class SampleScene : MonoBehaviour
 
     private void OnMissed()
     {
-        Combo = 0;
+        combo = 0;
     }
 
     private void ShowResultLeaderboardView(Level.ILevel level)

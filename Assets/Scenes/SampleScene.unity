@@ -154,11 +154,11 @@ RectTransform:
   m_Children:
   - {fileID: 1881366499}
   m_Father: {fileID: 743542878}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -181, y: 20}
+  m_AnchoredPosition: {x: 20, y: 20}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &47901889
@@ -1465,8 +1465,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 546587046}
   timer: {fileID: 923387447}
+  waveCountText: {fileID: 996406788}
   scoreText: {fileID: 1881366500}
-  comboText: {fileID: 996406788}
   canvas: {fileID: 2101648195}
   titleCanvasGroup: {fileID: 1415417268}
   practiceViewPrefab: {fileID: 935688660697364894, guid: 67b058ae1066d424e8fa7d2b57a06714, type: 3}
@@ -1822,8 +1822,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 923387446}
-  - {fileID: 47901888}
   - {fileID: 2144840970}
+  - {fileID: 47901888}
   m_Father: {fileID: 2101648192}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2206,7 +2206,7 @@ GameObject:
   - component: {fileID: 996406789}
   - component: {fileID: 996406788}
   m_Layer: 0
-  m_Name: Text - Combo
+  m_Name: Text - Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2228,8 +2228,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 58, y: 0}
-  m_SizeDelta: {x: 160, y: 40}
+  m_AnchoredPosition: {x: 80, y: 0}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &996406788
 MonoBehaviour:
@@ -2255,16 +2255,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 6c3655f3f491d430880afa2bc26baee0, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 24
     m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00000
+  m_Text: 000
 --- !u!222 &996406789
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3411,7 +3411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 95, y: 0}
+  m_AnchoredPosition: {x: 120, y: 0}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881366500
@@ -3703,11 +3703,11 @@ RectTransform:
   m_Children:
   - {fileID: 996406787}
   m_Father: {fileID: 743542878}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 89, y: 20}
+  m_AnchoredPosition: {x: -190, y: 20}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144840971
@@ -3743,7 +3743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: COMBO
+  m_Text: WAVE
 --- !u!222 &2144840972
 CanvasRenderer:
   m_ObjectHideFlags: 0
