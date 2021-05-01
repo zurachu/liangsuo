@@ -10,7 +10,7 @@ public class TitleTileAnimation : MonoBehaviour
     {
         await UniTask.Delay(delay);
         _ = DOTween.Sequence()
-            .Append(transform.DOLocalMoveY(10, 0.5f).SetEase(Ease.OutFlash, 2).SetRelative(true))
+            .Append(transform.DOLocalMoveY(10, 0.5f).SetEase(Ease.OutFlash, 2).SetRelative(true).SetLink(gameObject))
             .AppendInterval(2)
             .SetLoops(-1)
             .SetLink(gameObject);
