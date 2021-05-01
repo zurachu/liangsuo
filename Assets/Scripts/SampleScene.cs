@@ -14,6 +14,7 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private PracticeView practiceViewPrefab;
     [SerializeField] private LeaderboardView leaderboardViewPrefab;
     [SerializeField] private ResultLeaderboardView resultLeaderboardViewPrefab;
+    [SerializeField] private GameObject tapDefenseView;
 
     private int Score
     {
@@ -50,7 +51,7 @@ public class SampleScene : MonoBehaviour
     private int combo;
     private LeaderboardView leaderboardView;
 
-    private void Start()
+    private async void Start()
     {
         Score = 0;
         Combo = 0;
@@ -60,10 +61,13 @@ public class SampleScene : MonoBehaviour
         timer.Remaining = 0f;
         timer.IsRunning = false;
 
+        UIUtility.TrySetActive(tapDefenseView, true);
         if (!PlayFabLoginManagerService.Instance.LoggedIn)
         {
-            _ = PlayFabLoginManagerService.Instance.LoginAsyncWithRetry(1000);
+            await PlayFabLoginManagerService.Instance.LoginAsyncWithRetry(1000);
         }
+
+        UIUtility.TrySetActive(tapDefenseView, false);
     }
 
     public void OnClickPractice()
@@ -142,7 +146,7 @@ public class SampleScene : MonoBehaviour
     private async UniTask<bool> PlayWave(Level.ILevel level, int waveCount, CancellationToken cancellationToken)
     {
         timer.IsRunning = true;
-
+        UIUtility.TrySetActive(tapDefenseView, false);
         field.Drop(level.WaveTileInfos(waveCount), OnHit, OnMissed);
 
         await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
@@ -152,6 +156,7 @@ public class SampleScene : MonoBehaviour
         }
 
         timer.IsRunning = false;
+        UIUtility.TrySetActive(tapDefenseView, true);
         await field.Flush();
 
         return !level.IsLimitedWaveCount || waveCount < level.WaveCount;

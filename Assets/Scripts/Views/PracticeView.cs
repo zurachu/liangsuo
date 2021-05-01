@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PracticeView : MonoBehaviour
 {
+    [SerializeField] private GameObject tapDefenseView;
+
     private CancellationTokenSource cancellationTokenSource;
 
     public async void Initialize(Field field)
@@ -14,6 +16,7 @@ public class PracticeView : MonoBehaviour
 
     private async UniTask<bool> Practice(Field field, CancellationToken cancellationToken)
     {
+        UIUtility.TrySetActive(tapDefenseView, false);
         field.Drop(Wave.AllTilesInfos(), null, null);
 
         await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
@@ -22,6 +25,7 @@ public class PracticeView : MonoBehaviour
             return false;
         }
 
+        UIUtility.TrySetActive(tapDefenseView, true);
         await field.Flush();
 
         return !cancellationToken.IsCancellationRequested;
