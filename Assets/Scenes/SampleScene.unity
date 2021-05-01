@@ -1359,6 +1359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottom: {fileID: 79984633}
   tilePrefab: {fileID: 3510200468130647373, guid: e1ebb289900f140e29fc484ae45587e9, type: 3}
+  particlePrefab: {fileID: 607223153759271504, guid: 879609acbc96e4b6da44ebcd11974c79, type: 3}
 --- !u!1 &594461996
 GameObject:
   m_ObjectHideFlags: 0

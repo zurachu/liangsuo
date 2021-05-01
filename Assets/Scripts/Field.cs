@@ -8,6 +8,7 @@ public class Field : MonoBehaviour
 {
     [SerializeField] private GameObject bottom;
     [SerializeField] private Tile tilePrefab;
+    [SerializeField] private ParticleSystem particlePrefab;
 
     private static readonly int dropTileCountPerLine = 4;
 
@@ -56,14 +57,16 @@ public class Field : MonoBehaviour
             var tile = Instantiate(tilePrefab, position, rotation, transform);
             tile.Initialize(tileInfo, (_tile) =>
             {
-                RemoveTile(_tile);
                 if (_tile.TileInfo.IsTargetNumber)
                 {
+                    var particle = Instantiate(particlePrefab, _tile.transform.position, _tile.transform.localRotation, transform);
+                    RemoveTile(_tile);
                     SEManager.Instance.Play(SEPath.KIN);
                     onHit?.Invoke();
                 }
                 else
                 {
+                    RemoveTile(_tile);
                     SEManager.Instance.Play(SEPath.OSII);
                     onMissed?.Invoke();
                 }
