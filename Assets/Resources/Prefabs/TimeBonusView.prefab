@@ -147,7 +147,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 6c3655f3f491d430880afa2bc26baee0, type: 3}
+    m_Font: {fileID: 12800000, guid: a2cdb6e99e8924fff8f41ef2ba427fd6, type: 3}
     m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleText: {fileID: 3914464539103631537}
-  bonusRoot: {fileID: 0}
   bonusText: {fileID: 5336609994904244801}
 --- !u!1 &4653944287720522423
 GameObject:
