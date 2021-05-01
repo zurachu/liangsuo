@@ -42,7 +42,7 @@ public class Field : MonoBehaviour
     public void Drop(List<Tile.Info> tileInfos, Action onHit, Action onMissed)
     {
         UIUtility.TrySetActive(bottom, true);
-        SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008);
+        SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008, 2f);
 
         ClearTiles();
 
@@ -59,12 +59,12 @@ public class Field : MonoBehaviour
                 RemoveTile(_tile);
                 if (_tile.TileInfo.IsTargetNumber)
                 {
-                    SEManager.Instance.Play(SEPath.RIGHT2);
+                    SEManager.Instance.Play(SEPath.KIN);
                     onHit?.Invoke();
                 }
                 else
                 {
-                    SEManager.Instance.Play(SEPath.MISTAKE);
+                    SEManager.Instance.Play(SEPath.OSII);
                     onMissed?.Invoke();
                 }
             });
@@ -76,7 +76,8 @@ public class Field : MonoBehaviour
     public async UniTask Flush()
     {
         UIUtility.TrySetActive(bottom, false);
-        SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008);
+        SEManager.Instance.Play(SEPath.RIGHT2);
+        SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008, 2f);
         await UniTask.Delay(1500);
         ClearTiles();
     }

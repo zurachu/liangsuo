@@ -27,14 +27,17 @@ public class TimeBonusView : MonoBehaviour
         Bonus = bonus;
 
         UIUtility.TrySetText(titleText, $"{level.Name}クリア！");
+        SEManager.Instance.Play(SEPath.WHISTLE);
         await UniTask.Delay(1500);
         SEManager.Instance.Play(SEPath.NOTANOMORI_200812290000000032);
         await UniTask.Delay(1500);
 
+        SEManager.Instance.Play(SEPath.GAGEUP2);
         await DOTween.To(() => Bonus, (_bonus) => {
             Bonus = _bonus;
             onAdded?.Invoke(bonus - Bonus);
         }, 0, 1f)
             .SetEase(Ease.Linear);
+        SEManager.Instance.Stop();
     }
 }

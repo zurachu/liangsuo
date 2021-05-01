@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class ResultLeaderboardView : MonoBehaviour
         buttonCanvasGroup.interactable = false;
         await leaderboardScrollView.Initialize(level.StatisticName, maxResultsCount, score);
         buttonCanvasGroup.interactable = true;
+        BGMManager.Instance.Play(BGMPath.RESULT, pitch: 1f);
     }
 
     public void OnClickTweet()

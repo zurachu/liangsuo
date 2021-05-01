@@ -1,5 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using KanKikuchi.AudioManager;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,6 +62,7 @@ public class SampleScene : MonoBehaviour
         Score = 0;
         combo = 0;
         field.ClearTiles();
+        BGMManager.Instance.Stop();
 
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, true);
         timer.Remaining = 0f;
@@ -117,6 +120,7 @@ public class SampleScene : MonoBehaviour
     private async void StartLevel(Level.ILevel level)
     {
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
+        BGMManager.Instance.Play(BGMPath.THINKINGTIME5);
 
         var cancellationTokenSource = new CancellationTokenSource();
         timer.Reset();
@@ -135,8 +139,11 @@ public class SampleScene : MonoBehaviour
 
         timer.IsRunning = false;
         UIUtility.TrySetActive(tapDefenseView, true);
+        BGMManager.Instance.Stop();
         if (timer.IsTimedUp)
         {
+            SEManager.Instance.Play(SEPath.BOMB4, 2f);
+            _ = Camera.main.DOShakePosition(1f, 1f);
             await PlayFabLeaderboardUtility.UpdatePlayerStatisticWithRetry(level.StatisticName, Score, 1000);
             await UniTask.Delay(2000);
         }
