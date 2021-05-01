@@ -1471,6 +1471,7 @@ MonoBehaviour:
   titleCanvasGroup: {fileID: 1415417268}
   practiceViewPrefab: {fileID: 935688660697364894, guid: 67b058ae1066d424e8fa7d2b57a06714, type: 3}
   leaderboardViewPrefab: {fileID: 559164344036296916, guid: 1d6564cd1846a4bb19096c9e070a46ea, type: 3}
+  timeBonusViewPrefab: {fileID: 8325642863813066799, guid: 6ee19b652d46e453bac45a3a21498c13, type: 3}
   resultLeaderboardViewPrefab: {fileID: 7626563533404880801, guid: 442c8222d6e3d41be9b309bff97802e8, type: 3}
   tapDefenseView: {fileID: 668743386}
 --- !u!4 &598708572

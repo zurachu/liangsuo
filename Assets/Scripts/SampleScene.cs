@@ -13,6 +13,7 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private PracticeView practiceViewPrefab;
     [SerializeField] private LeaderboardView leaderboardViewPrefab;
+    [SerializeField] private TimeBonusView timeBonusViewPrefab;
     [SerializeField] private ResultLeaderboardView resultLeaderboardViewPrefab;
     [SerializeField] private GameObject tapDefenseView;
 
@@ -130,16 +131,23 @@ public class SampleScene : MonoBehaviour
             wave++;
         }
 
+        timer.IsRunning = false;
+        UIUtility.TrySetActive(tapDefenseView, true);
         if (timer.IsTimedUp)
         {
-            // game over
+            await PlayFabLeaderboardUtility.UpdatePlayerStatisticWithRetry(level.StatisticName, Score, 1000);
+            await UniTask.Delay(2000);
         }
         else
         {
-            // clear
+            var timeBonusView = Instantiate(timeBonusViewPrefab, canvas.transform);
+            var baseScore = Score;
+            await timeBonusView.Play(level, (int)(timer.Remaining * 1000), (_added) => { Score = baseScore + _added; });
+            await PlayFabLeaderboardUtility.UpdatePlayerStatisticWithRetry(level.StatisticName, Score, 1000);
+            await UniTask.Delay(2000);
+            Destroy(timeBonusView.gameObject);
         }
 
-        await PlayFabLeaderboardUtility.UpdatePlayerStatisticWithRetry(level.StatisticName, Score, 1000);
         ShowResultLeaderboardView(level);
     }
 
