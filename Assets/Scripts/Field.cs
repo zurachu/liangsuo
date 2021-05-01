@@ -81,7 +81,7 @@ public class Field : MonoBehaviour
         UIUtility.TrySetActive(bottom, false);
         SEManager.Instance.Play(SEPath.RIGHT2);
         SEManager.Instance.Play(SEPath.NOTANOMORI_200812220000000008, 2f);
-        await UniTask.Delay(1500);
+        await UniTask.Delay(2000);
         ClearTiles();
     }
 
