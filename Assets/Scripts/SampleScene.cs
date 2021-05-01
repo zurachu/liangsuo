@@ -12,6 +12,7 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private PracticeView practiceViewPrefab;
+    [SerializeField] private LeaderboardView leaderboardViewPrefab;
     [SerializeField] private ResultLeaderboardView resultLeaderboardViewPrefab;
 
     private int Score
@@ -47,26 +48,22 @@ public class SampleScene : MonoBehaviour
     }
 
     private int combo;
+    private LeaderboardView leaderboardView;
 
     private void Start()
     {
         Score = 0;
         Combo = 0;
-        OnClickTitle();
-
-        if (!PlayFabLoginManagerService.Instance.LoggedIn)
-        {
-            _ = PlayFabLoginManagerService.Instance.LoginAsyncWithRetry(1000);
-        }
-    }
-
-    public void OnClickTitle()
-    {
         field.ClearTiles();
 
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, true);
         timer.Remaining = 0f;
         timer.IsRunning = false;
+
+        if (!PlayFabLoginManagerService.Instance.LoggedIn)
+        {
+            _ = PlayFabLoginManagerService.Instance.LoginAsyncWithRetry(1000);
+        }
     }
 
     public void OnClickPractice()
@@ -94,6 +91,19 @@ public class SampleScene : MonoBehaviour
     public void OnClickEndless()
     {
         StartLevel(new Level.Endless());
+    }
+
+    public void OnClickLederboard(int index = 0)
+    {
+        UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
+
+        if (leaderboardView != null)
+        {
+            Destroy(leaderboardView.gameObject);
+        }
+
+        leaderboardView = Instantiate(leaderboardViewPrefab, canvas.transform);
+        leaderboardView.Initialize(index, 30, OnClickLederboard);
     }
 
     private async void StartLevel(Level.ILevel level)
