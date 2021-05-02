@@ -10,7 +10,7 @@ public class Field : MonoBehaviour
     [SerializeField] private Tile tilePrefab;
     [SerializeField] private ParticleSystem particlePrefab;
 
-    private static readonly int dropTileCountPerLine = 4;
+    private static readonly int dropTileCountPerLine = 5;
 
     private List<Tile> tiles;
 
@@ -49,7 +49,7 @@ public class Field : MonoBehaviour
 
         foreach (var (tileInfo, index) in tileInfos.WithIndex())
         {
-            var x = -1.5f + (index % dropTileCountPerLine) * 1f + UnityEngine.Random.Range(-0.25f, 0.25f);
+            var x = -2f + (index % dropTileCountPerLine) * 1f + UnityEngine.Random.Range(-0.25f, 0.25f);
             var y = 6 + index / dropTileCountPerLine * 1.5f;
             var position = new Vector3(x, y);
             var rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0f, 360f));

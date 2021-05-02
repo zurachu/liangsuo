@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IP
 
     private SpriteRenderer Renderer => GetComponent<SpriteRenderer>();
 
-    private static readonly Color enteredColor = new Color(1f, 0.8f, 0.8f);
+    private static readonly Color enteredColor = new Color(0.85f, 1f, 0.5f);
 
     private Action<Tile> onTouched;
 
