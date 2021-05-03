@@ -4,7 +4,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using PlayFab;
 using PlayFab.ClientModels;
-#if UNITY_ANDROID
+#if false
 using GooglePlayGames;
 #endif
 
@@ -47,11 +47,13 @@ public class PlayFabLoginManagerService
         }
 
 #if !UNITY_EDITOR && UNITY_ANDROID
+#if false
         if (GooglePlayGameLoginManagerService.Instance.LoggedIn)
         {
             result = await TryLoginWithGoogleAccountAsync();
         }
         else
+#endif
         {
             result = await TryLoginWithAndroidDeviceIdAsync();
         }
@@ -81,6 +83,7 @@ public class PlayFabLoginManagerService
     }
 
 #if UNITY_ANDROID
+#if false
     private UniTask<LoginResult> TryLoginWithGoogleAccountAsync()
     {
         var serverAuthCode = PlayGamesPlatform.Instance.GetServerAuthCode();
@@ -100,7 +103,7 @@ public class PlayFabLoginManagerService
         PlayFabClientAPI.LoginWithGoogleAccount(request, resultCallback, errorCallback);
         return source.Task;
     }
-
+#endif
     private UniTask<LoginResult> TryLoginWithAndroidDeviceIdAsync()
     {
         var request = new LoginWithAndroidDeviceIDRequest

@@ -1,5 +1,6 @@
 using KanKikuchi.AudioManager;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class ResultLeaderboardView : MonoBehaviour
@@ -29,5 +30,11 @@ public class ResultLeaderboardView : MonoBehaviour
 #else
         TweetWithoutUnityRoom(message);
 #endif
+    }
+
+    private void TweetWithoutUnityRoom(string message)
+    {
+        var messageWithGooglePlayStoreUrl = $"{message}\nhttps://play.google.com/store/apps/details?id=com.zurachu.liangsuo";
+        Application.OpenURL("http://twitter.com/intent/tweet?text=" + UnityWebRequest.EscapeURL(messageWithGooglePlayStoreUrl));
     }
 }
