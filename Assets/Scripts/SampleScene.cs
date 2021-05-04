@@ -194,9 +194,12 @@ public class SampleScene : MonoBehaviour
         }
     }
 
-    private void OnMissed()
+    private async void OnMissed()
     {
         combo = 0;
+        UIUtility.TrySetActive(tapDefenseView, true);
+        await UniTask.Delay(500);
+        UIUtility.TrySetActive(tapDefenseView, false);
     }
 
     private void ShowResultLeaderboardView(Level.ILevel level)
