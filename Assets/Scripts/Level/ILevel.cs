@@ -9,5 +9,7 @@ namespace Level
         bool IsLimitedWaveCount { get; }
         int WaveCount { get; }
         List<Tile.Info> WaveTileInfos(int waveCount);
+        float RecoveryTimeByHit(int waveCount);
+        float RecoveryTimeByClear(int waveCount);
     }
 }

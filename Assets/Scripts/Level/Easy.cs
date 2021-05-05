@@ -32,5 +32,8 @@ namespace Level
                     return Wave.AllTilesInfos();
             }
         }
+
+        public float RecoveryTimeByHit(int waveCount) => 0.5f;
+        public float RecoveryTimeByClear(int waveCount) => 2f;
     }
 }

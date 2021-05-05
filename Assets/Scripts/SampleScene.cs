@@ -164,7 +164,7 @@ public class SampleScene : MonoBehaviour
     {
         timer.IsRunning = true;
         UIUtility.TrySetActive(tapDefenseView, false);
-        field.Drop(level.WaveTileInfos(waveCount), OnHit, OnMissed);
+        field.Drop(level.WaveTileInfos(waveCount), () => { OnHit(level, waveCount); }, OnMissed);
 
         await UniTask.WaitUntil(() => cancellationToken.IsCancellationRequested || !field.TargetNumberRemained);
         if (cancellationToken.IsCancellationRequested)
@@ -179,18 +179,18 @@ public class SampleScene : MonoBehaviour
         return !level.IsLimitedWaveCount || waveCount < level.WaveCount;
     }
 
-    private void OnHit()
+    private void OnHit(Level.ILevel level, int waveCount)
     {
         combo++;
         Score += ScoreCalculator.ScoreByCombo(combo);
 
         if (field.TargetNumberRemained)
         {
-            timer.RecoverByHit();
+            timer.Recover(level.RecoveryTimeByHit(waveCount));
         }
         else
         {
-            timer.RecoverByClear();
+            timer.Recover(level.RecoveryTimeByClear(waveCount));
         }
     }
 

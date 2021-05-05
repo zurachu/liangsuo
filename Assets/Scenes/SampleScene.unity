@@ -3434,8 +3434,6 @@ MonoBehaviour:
   barMaxTime: 20
   initialTime: 20
   dangerTime: 5
-  recoveryTimeByHit: 0.5
-  recoveryTimeByClear: 2
   recoveryDuration: 0.5
 --- !u!1 &964776918
 GameObject:

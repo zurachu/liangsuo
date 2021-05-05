@@ -11,8 +11,6 @@ public class Timer : MonoBehaviour
     [SerializeField] private float barMaxTime;
     [SerializeField] private float initialTime;
     [SerializeField] private float dangerTime;
-    [SerializeField] private float recoveryTimeByHit;
-    [SerializeField] private float recoveryTimeByClear;
     [SerializeField] private float recoveryDuration;
 
     public bool IsRunning { get; set; }
@@ -50,17 +48,7 @@ public class Timer : MonoBehaviour
         Remaining = initialTime;
     }
 
-    public void RecoverByHit()
-    {
-        Recover(recoveryTimeByHit);
-    }
-
-    public void RecoverByClear()
-    {
-        Recover(recoveryTimeByClear);
-    }
-
-    private async void Recover(float time)
+    public async void Recover(float time)
     {
         isRecovering = true;
         await DOTween.To(() => Remaining, (_remaining) => Remaining = _remaining, time, recoveryDuration)
