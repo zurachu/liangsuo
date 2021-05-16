@@ -66,3 +66,7 @@ Assets/PlayFabEditorExtensions*
 Assets/PlayFabSDK*
 Assets/TextMesh Pro/Documentation*
 iOS
+Assets/ExternalDependencyManager*
+Assets/GooglePlayGames*
+Assets/Plugins/Android
+ProjectSettings/GooglePlayGameSettings.txt
