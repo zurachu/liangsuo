@@ -83,6 +83,11 @@ public class SampleScene : MonoBehaviour
         Instantiate(licenseViewPrefab, canvas.transform);
     }
 
+    public void OnClickPrivacyPolicy()
+    {
+        WebUtility.OpenURL("https://zurachu.github.io/liangsuo/privacy-policy.html");
+    }
+
     public void OnClickPractice()
     {
         UIUtility.TrySetActive(titleCanvasGroup.gameObject, false);
