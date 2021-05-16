@@ -13,6 +13,7 @@ public class SampleScene : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Canvas canvas;
     [SerializeField] private CanvasGroup titleCanvasGroup;
+    [SerializeField] private LicenseView licenseViewPrefab;
     [SerializeField] private PracticeView practiceViewPrefab;
     [SerializeField] private LeaderboardView leaderboardViewPrefab;
     [SerializeField] private TimeBonusView timeBonusViewPrefab;
@@ -75,6 +76,11 @@ public class SampleScene : MonoBehaviour
         }
 
         UIUtility.TrySetActive(tapDefenseView, false);
+    }
+
+    public void OnClickLicense()
+    {
+        Instantiate(licenseViewPrefab, canvas.transform);
     }
 
     public void OnClickPractice()
